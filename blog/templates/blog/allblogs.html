@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Saeed Arshad</title>
+    <title>Saeed's blog</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
@@ -22,14 +22,14 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{% url 'jobs:home' %}">Saeed Arshad</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
                     <a class="nav-item nav-link" href="{% static 'Saeed_Arshad_CV.pdf' %}" target="_blank">Resume</a>
-                    <a class="nav-item nav-link" href="{% url 'blog:allBlogs' %}">Blog</a>
+                    <a class="nav-item nav-link active" href="{% url 'blog:allBlogs' %}">Blog</a>
                     <a class="nav-item nav-link" href="https://www.linkedin.com/in/saeed-arshad-187483128/" target="_blank">LinkedIn</a>
                     <a class="nav-item nav-link" href="https://github.com/saeedarshad" target="_blank">Github</a>
 
@@ -39,39 +39,27 @@
     </header>
 
     <main role="main">
+        <div class='container'>
+            <h1 class='text-center pt-3'>Welcome to Saeed's Blog</h1><br /><br />
+            <h2>Latest Posts</h2>
+            <hr />
 
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">Hi, I am Saeed Arshad </h1>
-                <p class="lead text-muted">I am Computer Science graduate.I love to develop django websites.</p>
-                <p>
-                    <a href="mailto:m.saeedarshad95@gmail.com" class="btn btn-primary my-2">Contact me</a>
-                </p>
-                <img class='img-fluid' src="{% static 'IMG_0079.JPG' %}" height=200px width=200px />
-            </div>
-        </section>
+            {% for blog in blogs.all %}
+            <a href="{% url 'blog:detail' blog.id %}">
+                <h3>{{blog.title}}</h3>
+            </a><span style='font-size: 13px'>{{blog.pub_date}}</span>
 
-        <div class="album py-5 bg-light">
-            <div class="container">
-                <div class="row">
-                    {% for job in jobs.all %}
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm">
-                            <h1 class='card-header text-center'>{{job.title}}</h1>
-                            <img class="card-img-top" src="{{job.image.url}}" />
-                            <div class="card-body">
-                                <p class="card-text">{{job.summary}}</p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
+            <br>
+            <img class='img-fluid' src="{{blog.image.url}}" height=100 width=300 alt="">
+            <br>
+            <p>{{blog.summary}} <a href="{% url 'blog:detail' blog.id %}">Read full blog</a></p>
+            {% endfor%}
         </div>
+
 
     </main>
 
-    <footer class="text-muted">
+    <footer class="text-muted ">
         <div class="container text-center">
             <p class="float-right">
                 <a href="#">Back to top</a>
